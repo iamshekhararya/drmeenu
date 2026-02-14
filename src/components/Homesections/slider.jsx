@@ -9,7 +9,7 @@ const slides = [
     image: img1,
     title: "",
     subtitle: "Dr Meenu’s Gynecology & Fertility Clinic",
-    objectPosition: "center center", // control image position
+    objectPosition: "center center",
   },
   {
     id: 2,
@@ -29,53 +29,54 @@ const slides = [
 
 const Slider = () => {
   const [current, setCurrent] = useState(0);
-  const length = slides.length;
   const [isHovered, setIsHovered] = useState(false);
+  const length = slides.length;
 
   const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
+    setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
+    setCurrent((prev) => (prev === 0 ? length - 1 : prev - 1));
   };
 
-  // Auto-slide every 5 seconds, pause on hover
+  // ✅ Auto Slide with setInterval
   useEffect(() => {
-    if (!isHovered) {
-      const timer = setTimeout(nextSlide, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [current, isHovered]);
+    if (isHovered) return;
+
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 4000); // 4 seconds
+
+    return () => clearInterval(interval);
+  }, [isHovered]);
 
   return (
     <div
-      className="relative w-full max-w-8xl h-[300px] sm:h-[400px] md:h-[500px] lg:h-[700px] mx-auto overflow-hidden rounded-lg"
+      className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[700px] mx-auto overflow-hidden rounded-lg"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Slides */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          className={`${index === current ? "block" : "hidden"} w-full h-full relative`}
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            index === current ? "opacity-100" : "opacity-0"
+          }`}
         >
           <img
             src={slide.image}
-            alt={slide.title}
-            className="w-full h-full object-cover transition-all duration-700"
+            alt=""
+            className="w-full h-full object-cover"
             style={{ objectPosition: slide.objectPosition }}
           />
-          <div className="absolute bottom-4 left-4 bg-black bg-opacity-10 p-3 rounded">
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white">
-              {slide.title}
-            </h2>
+
+          <div className="absolute bottom-6 left-6">
             <p
-              className="text-4xl sm:text-base md:text-6xl lg:text-7xl"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold"
               style={{
-                color: "white", // inner text color
-                WebkitTextStroke: "2px black", // stronger black border
-                textStroke: "2px black", // fallback for other browsers
+                color: "white",
+                WebkitTextStroke: "2px black",
               }}
             >
               {slide.subtitle}
@@ -84,22 +85,23 @@ const Slider = () => {
         </div>
       ))}
 
-      {/* Prev / Next Buttons */}
+      {/* Buttons */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-pink-500 text-white px-3 py-1 rounded-full opacity-80 hover:opacity-100 z-10"
+        className="absolute top-1/2 left-4 -translate-y-1/2 bg-pink-500 text-white px-3 py-1 rounded-full z-10"
       >
         ‹
       </button>
+
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-pink-500 text-white px-3 py-1 rounded-full opacity-80 hover:opacity-100 z-10"
+        className="absolute top-1/2 right-4 -translate-y-1/2 bg-pink-500 text-white px-3 py-1 rounded-full z-10"
       >
         ›
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-2 w-full flex justify-center gap-2">
+      <div className="absolute bottom-4 w-full flex justify-center gap-2">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -107,7 +109,7 @@ const Slider = () => {
             className={`w-3 h-3 rounded-full ${
               index === current ? "bg-pink-500" : "bg-gray-300"
             }`}
-          ></button>
+          />
         ))}
       </div>
     </div>

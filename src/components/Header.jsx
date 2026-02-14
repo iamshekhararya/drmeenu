@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import BookAppointment from "../components/bookappoitment";
 import logo from "../assets/images/Home/logo.png";
+import wimg from "../assets/images/Home/w.png";
 
 const Header = () => {
   // DESKTOP STATES
@@ -7,6 +10,7 @@ const Header = () => {
   const [showPregnancy, setShowPregnancy] = useState(false);
   const [showGyne, setShowGyne] = useState(false);
   const [showInfertility, setShowInfertility] = useState(false);
+  const [showAppointmentModal, setShowAppointmentModal] = useState(false);
 
   const obsTimeout = useRef(null);
   const infertilityTimeout = useRef(null);
@@ -33,15 +37,15 @@ const Header = () => {
   const [mobileInfertility, setMobileInfertility] = useState(false);
 
   return (
-    <header className="w-full border-b bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <header className="w-full border-b bg-white relative">
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-3 flex items-center justify-between">
         {/* LOGO */}
-        <img src={logo} alt="Logo" className="h-40" />
+        <img src={logo} alt="Logo" className="h-20 lg:h-24" />
 
         {/* DESKTOP NAV */}
-        <nav className="hidden lg:flex items-center gap-8 text-pink-500 font-medium">
+        <nav className="hidden xl:flex items-center gap-8 text-pink-500 font-medium">
           <a href="/">Home</a>
-          <a href="/about">About Us</a>
+          <a href="/about-us">About Us</a>
 
           {/* OBS & GYNAE */}
           <div
@@ -52,7 +56,7 @@ const Header = () => {
             }}
             onMouseLeave={closeObsMenu}
           >
-            <button className="flex items-center gap-1">
+            <Link to="/obs-gynae" className="flex items-center gap-1">
               OBS & GYNAE
               <svg
                 className="w-4 h-4 mt-1"
@@ -63,7 +67,7 @@ const Header = () => {
               >
                 <path d="M6 9l6 6 6-6" />
               </svg>
-            </button>
+            </Link>
 
             {showObs && (
               <div className="absolute left-0 mt-3 w-60 bg-white border rounded-lg shadow-lg z-50">
@@ -78,14 +82,44 @@ const Header = () => {
                   <div className="px-4 py-2 hover:bg-pink-50 cursor-pointer flex justify-between">
                     Pregnancy Care <span>›</span>
                   </div>
-
                   {showPregnancy && (
                     <div className="absolute top-0 left-full w-56 bg-white border rounded-lg shadow-lg">
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/obs-gyne/pregnancy-care">Normal Pregnancy</a>
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/obs-gyne/high-risk-pregnancy">C-Section Delivery</a>
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/obs-gyne/high-risk-pregnancy">Painless Delivery</a>
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/obs-gyne/high-risk-pregnancy">Postpartum Care</a>
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/obs-gyne/high-risk-pregnancy">Vaccination</a>
+                      <a
+                        href="/obs-gynae/pregnancy-care/normal-delivery"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Normal Pregnancy
+                      </a>
+                      <a
+                        href="/obs-gynae/pregnancy-care/c-section-delivery"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        C-Section Delivery
+                      </a>
+                      <a
+                        href="/obs-gynae/pregnancy-care/painless-delivery"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Painless Delivery
+                      </a>
+                      <a
+                        href="/obs-gynae/pregnancy-care/postpartum-care"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Postpartum Care
+                      </a>
+                      <a
+                        href="/obs-gynae/pregnancy-care/vaccination"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Vaccination
+                      </a>
+                      <a
+                        href="/obs-gynae/pregnancy-care/pregnancy-care"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Pregnancy Care
+                      </a>
                     </div>
                   )}
                 </div>
@@ -101,13 +135,44 @@ const Header = () => {
                   <div className="px-4 py-2 hover:bg-pink-50 cursor-pointer flex justify-between">
                     Gynecologist <span>›</span>
                   </div>
-
                   {showGyne && (
                     <div className="absolute top-0 left-full w-56 bg-white border rounded-lg shadow-lg">
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/gyne/pcos">Fibroid Treatment</a>
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/gyne/infertility">Infections & STIs</a>
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/gyne/infertility">Laparoscopic Surgery</a>
-                      <a className="block px-4 py-2 hover:bg-pink-50" href="/gyne/infertility">PCOS Treatment</a>
+                      <a
+                        href="/obs-gynae/gynecology/fibroid-treatment"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Fibroid Treatment
+                      </a>
+                      <a
+                        href="/obs-gynae/gynecology/infections-stis"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Infections & STIs
+                      </a>
+                      <a
+                        href="/obs-gynae/gynecology/laparoscopic-surgery"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Laparoscopic Surgery
+                      </a>
+                      <a
+                        href="/obs-gynae/gynecology/menstrual-health"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Menstrual Health
+                      </a>
+                      <a
+                        href="/obs-gynae/gynecology/pcos-treatment"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        PCOS Treatment
+                      </a>
+                      <a
+                        href="/obs-gynae/gynecology/pelvic-pain-pap-smear"
+                        className="block px-4 py-2 hover:bg-pink-50"
+                      >
+                        Pelvic Pain, Breast Examination, Pap Smears
+                      </a>
                     </div>
                   )}
                 </div>
@@ -124,7 +189,7 @@ const Header = () => {
             }}
             onMouseLeave={closeInfertilityMenu}
           >
-            <button className="flex items-center gap-1">
+            <Link to="/female-infertility" className="flex items-center gap-1">
               Female Infertility
               <svg
                 className="w-4 h-4 mt-1"
@@ -135,37 +200,72 @@ const Header = () => {
               >
                 <path d="M6 9l6 6 6-6" />
               </svg>
-            </button>
+            </Link>
 
             {showInfertility && (
               <div className="absolute left-0 mt-3 w-60 bg-white border rounded-lg shadow-lg z-50">
-                <a className="block px-4 py-2 hover:bg-pink-50" href="/female-infertility/ivf">IVF Treatment</a>
-                <a className="block px-4 py-2 hover:bg-pink-50" href="/female-infertility/iui">Embryo Preservation</a>
-                <a className="block px-4 py-2 hover:bg-pink-50" href="/female-infertility/pcos">Assisted Embryo Hatching</a>
-                <a className="block px-4 py-2 hover:bg-pink-50" href="/female-infertility/endometriosis">Blastocyst Transfer</a>
-                <a className="block px-4 py-2 hover:bg-pink-50" href="/female-infertility/endometriosis">ICSI Treatment</a>
-                <a className="block px-4 py-2 hover:bg-pink-50" href="/female-infertility/endometriosis">IUI Treatment</a>
-                <a className="block px-4 py-2 hover:bg-pink-50" href="/female-infertility/endometriosis">PCOD / PCOS</a>
+                <a
+                  href="/female-infertility/ivf-treatment"
+                  className="block px-4 py-2 hover:bg-pink-50"
+                >
+                  IVF Treatment
+                </a>
+                <a
+                  href="/female-infertility/embryo-preservation"
+                  className="block px-4 py-2 hover:bg-pink-50"
+                >
+                  Embryo Preservation
+                </a>
+                <a
+                  href="/female-infertility/assisted-embryo-hatching"
+                  className="block px-4 py-2 hover:bg-pink-50"
+                >
+                  Assisted Embryo Hatching
+                </a>
+                <a
+                  href="/female-infertility/blastocyst-transfer"
+                  className="block px-4 py-2 hover:bg-pink-50"
+                >
+                  Blastocyst Transfer
+                </a>
+                <a
+                  href="/female-infertility/icsi-treatment"
+                  className="block px-4 py-2 hover:bg-pink-50"
+                >
+                  ICSI Treatment
+                </a>
+                <a
+                  href="/female-infertility/iui-treatment"
+                  className="block px-4 py-2 hover:bg-pink-50"
+                >
+                  IUI Treatment
+                </a>
+                <a
+                  href="/female-infertility/pcod-pcos-treatment"
+                  className="block px-4 py-2 hover:bg-pink-50"
+                >
+                  PCOD / PCOS
+                </a>
               </div>
             )}
           </div>
 
           <a href="/testimonial">Testimonial</a>
-          <a href="/contact">Contact Us</a>
+          <a href="/contact-us">Contact Us</a>
         </nav>
 
-        {/* DESKTOP CTA */}
-        <a
-          href="/book-appointment"
-          className="hidden lg:block bg-pink-500 text-white px-6 py-3 rounded-lg"
+        {/* DESKTOP BOOK APPOINTMENT BUTTON */}
+        <button
+          onClick={() => setShowAppointmentModal(true)}
+          className="hidden xl:block bg-pink-500 text-white px-6 py-3 rounded-lg"
         >
           Book Appointment
-        </a>
+        </button>
 
         {/* MOBILE HAMBURGER */}
         <button
-          className="lg:hidden text-pink-500 text-3xl"
-          onClick={() => setMobileMenu(!mobileMenu)}
+          className="xl:hidden text-pink-500 text-3xl"
+          onClick={() => setMobileMenu((prev) => !prev)}
         >
           ☰
         </button>
@@ -173,89 +273,100 @@ const Header = () => {
 
       {/* MOBILE MENU */}
       {mobileMenu && (
-        <div className="lg:hidden bg-white border-t px-4 py-4 flex flex-col gap-3 text-pink-500 font-medium">
-          <a className="block w-full" href="/">Home</a>
-          <a className="block w-full" href="/about">About Us</a>
+        <div className="xl:hidden bg-white border-t px-4 py-4 flex flex-col gap-3 text-pink-500 font-medium">
+          <a href="/">Home</a>
+          <a href="/about-us">About Us</a>
 
-          {/* OBS & GYNAE */}
+          {/* Mobile OBS & Gyne */}
           <button
-            className="block w-full text-left flex justify-between items-center"
+            className="w-full text-left flex justify-between items-center"
             onClick={() => setMobileObs(!mobileObs)}
           >
             OBS & GYNAE <span>{mobileObs ? "▲" : "▼"}</span>
           </button>
-
           {mobileObs && (
             <div className="pl-4 flex flex-col gap-2">
-              {/* Pregnancy Care */}
-              <div>
-                <button
-                  className="w-full text-left flex justify-between items-center"
-                  onClick={() => setMobilePregnancy(!mobilePregnancy)}
-                >
-                  Pregnancy Care <span>{mobilePregnancy ? "▲" : "▼"}</span>
-                </button>
-                {mobilePregnancy && (
-                  <div className="pl-4 flex flex-col gap-1">
-                    <a href="/obs-gyne/pregnancy-care" className="block py-1">Normal Pregnancy</a>
-                    <a href="/obs-gyne/high-risk-pregnancy" className="block py-1">C-Section Delivery</a>
-                    <a href="/obs-gyne/high-risk-pregnancy" className="block py-1">Painless Delivery</a>
-                    <a href="/obs-gyne/high-risk-pregnancy" className="block py-1">Postpartum Care</a>
-                    <a href="/obs-gyne/high-risk-pregnancy" className="block py-1">Vaccination</a>
-                  </div>
-                )}
-              </div>
+              {/* Pregnancy */}
+              <button
+                className="w-full text-left flex justify-between items-center"
+                onClick={() => setMobilePregnancy(!mobilePregnancy)}
+              >
+                Pregnancy Care <span>{mobilePregnancy ? "▲" : "▼"}</span>
+              </button>
+              {mobilePregnancy && (
+                <div className="pl-4 flex flex-col gap-1">
+                  <a href="/obs-gynae/pregnancy-care/normal-delivery">Normal Pregnancy</a>
+                  <a href="/obs-gynae/pregnancy-care/c-section-delivery">C-Section Delivery</a>
+                  <a href="/obs-gynae/pregnancy-care/painless-delivery">Painless Delivery</a>
+                  <a href="/obs-gynae/pregnancy-care/postpartum-care">Postpartum Care</a>
+                  <a href="/obs-gynae/pregnancy-care/vaccination">Vaccination</a>
+                  <a href="/obs-gynae/pregnancy-care/pregnancy-care">Pregnancy Care</a>
+                </div>
+              )}
 
               {/* Gyne */}
-              <div>
-                <button
-                  className="w-full text-left flex justify-between items-center"
-                  onClick={() => setMobileGyne(!mobileGyne)}
-                >
-                  Gynecologist <span>{mobileGyne ? "▲" : "▼"}</span>
-                </button>
-                {mobileGyne && (
-                  <div className="pl-4 flex flex-col gap-1">
-                    <a href="/gyne/pcos" className="block py-1">Fibroid Treatment</a>
-                    <a href="/gyne/infertility" className="block py-1">Infections & STIs</a>
-                    <a href="/gyne/infertility" className="block py-1">Laparoscopic Surgery</a>
-                    <a href="/gyne/infertility" className="block py-1">PCOS Treatment</a>
-                  </div>
-                )}
-              </div>
+              <button
+                className="w-full text-left flex justify-between items-center"
+                onClick={() => setMobileGyne(!mobileGyne)}
+              >
+                Gynecologist <span>{mobileGyne ? "▲" : "▼"}</span>
+              </button>
+              {mobileGyne && (
+                <div className="pl-4 flex flex-col gap-1">
+                  <a href="/obs-gynae/gynecology/fibroid-treatment">Fibroid Treatment</a>
+                  <a href="/obs-gynae/gynecology/infections-stis">Infections & STIs</a>
+                  <a href="/obs-gynae/gynecology/laparoscopic-surgery">Laparoscopic Surgery</a>
+                  <a href="/obs-gynae/gynecology/pcos-treatment">PCOS Treatment</a>
+                  <a href="/obs-gynae/gynecology/pelvic-pain-pap-smear">Pelvic Pain, Pap Smear</a>
+                </div>
+              )}
             </div>
           )}
 
-          {/* FEMALE INFERTILITY */}
+          {/* Mobile Female Infertility */}
           <button
-            className="block w-full text-left flex justify-between items-center"
+            className="w-full text-left flex justify-between items-center"
             onClick={() => setMobileInfertility(!mobileInfertility)}
           >
             Female Infertility <span>{mobileInfertility ? "▲" : "▼"}</span>
           </button>
-
           {mobileInfertility && (
             <div className="pl-4 flex flex-col gap-1">
-              <a href="/female-infertility/ivf" className="block py-1">IVF Treatment</a>
-              <a href="/female-infertility/iui" className="block py-1">Embryo Preservation</a>
-              <a href="/female-infertility/pcos" className="block py-1">Assisted Embryo Hatching</a>
-              <a href="/female-infertility/endometriosis" className="block py-1">Blastocyst Transfer</a>
-              <a href="/female-infertility/endometriosis" className="block py-1">ICSI Treatment</a>
-              <a href="/female-infertility/endometriosis" className="block py-1">IUI Treatment</a>
-              <a href="/female-infertility/endometriosis" className="block py-1">PCOD / PCOS</a>
+              <a href="/female-infertility/ivf">IVF Treatment</a>
+              <a href="/female-infertility/iui">IUI Treatment</a>
+              <a href="/female-infertility/assisted-embryo-hatching">Assisted Hatching</a>
+              <a href="/female-infertility/blastocyst-transfer">Blastocyst Transfer</a>
+              <a href="/female-infertility/icsi-treatment">ICSI Treatment</a>
+              <a href="/female-infertility/pcod-pcos-treatment">PCOD / PCOS</a>
             </div>
           )}
 
-          <a className="block w-full" href="/testimonial">Testimonial</a>
-          <a className="block w-full" href="/contact">Contact Us</a>
+          <a href="/testimonial">Testimonial</a>
+          <a href="/contact">Contact Us</a>
 
-          <a
-            href="/book-appointment"
-            className="block w-full bg-pink-500 text-white text-center py-2 rounded mt-2"
+          {/* Mobile Book Appointment */}
+          <button
+            onClick={() => setShowAppointmentModal(true)}
+            className="w-full bg-pink-500 text-white py-2 rounded mt-2"
           >
             Book Appointment
-          </a>
+          </button>
         </div>
+      )}
+
+      {/* WHATSAPP BUTTON */}
+      <a
+        href="https://wa.me/919355103322"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-5 right-5 z-50"
+      >
+        <img src={wimg} alt="WhatsApp" className="w-14 h-14 rounded-full shadow-lg" />
+      </a>
+
+      {/* APPOINTMENT MODAL */}
+      {showAppointmentModal && (
+        <BookAppointment onClose={() => setShowAppointmentModal(false)} />
       )}
     </header>
   );
